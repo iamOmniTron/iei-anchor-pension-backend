@@ -7,7 +7,7 @@ module.exports = {
         try{
             const {email,password} = req.body;
             if(!email || email == ""){
-                return next("invalid emai;")
+                return next("invalid email;")
             }
             if(!password || password == ""){
                 return next("invalid password");
@@ -20,7 +20,8 @@ module.exports = {
             if(!isPasswordMatch){
                 return next("invalid email/password")
             }
-            const token = signToken(account.id);
+            console.log(account.toJSON())
+            const token = signToken(account.id.toString());
 
             return res.json({
                 success:true,

@@ -14,7 +14,7 @@ module.exports = {
             if(!token || typeof token !== "string"){
                 return next("unauthenticated");
             }
-            const payload = verify(token,SECRET);
+            const payload = verify(token,SECRET).userId;
             const account = Admin.find({where:{id:payload}});
             if(!account || account == undefined){
                 return next("unauthenticated");

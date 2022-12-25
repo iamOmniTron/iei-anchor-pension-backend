@@ -5,6 +5,21 @@ const CallToAction = require("../models").CallToAction;
 const Service = require("../models").Service;
 const Info = require("../models").Info;
 const Review = require("../models").Review;
+const Admin = require("../models").Admin;
+const {hash} = require("bcrypt");
+
+
+const seedAdmin = async()=>{
+    try{
+        const data = {
+            email:"admin@anchorpension.com",
+            password: await hash("super_admin",10)
+        };
+        await Admin.create({...data});
+    }catch(err){
+        console.log(chalk.red('Error:',err.message))
+    }
+}
 
 const seedHero = async()=>{
     try{
@@ -130,5 +145,5 @@ const seedShowcase = async ()=>{
 }
 
 module.exports = async function seedDB(){
-    await Promise.all([seedHero(),seedServices(),seedCTA(),seedInfo(),seedReview(),seedShowcase()]);
+    await Promise.all([seedAdmin(),seedHero(),seedServices(),seedCTA(),seedInfo(),seedReview(),seedShowcase()]);
 }
